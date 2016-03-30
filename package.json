@@ -1,0 +1,32 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Tic Tac Toe implementation in React and Redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thekamahele/tic-tac-toe.git"
+  },
+  "keywords": [
+    "react",
+    "redux"
+  ],
+  "author": "Jira Vinyoopongphan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thekamahele/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/thekamahele/tic-tac-toe#readme",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.8.4"
+  }
+}
