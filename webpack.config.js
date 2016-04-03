@@ -7,16 +7,20 @@ const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build')
 }
+
+process.env.BABEL_ENV = TARGET;
+
 const common = {
   entry: {
     app: PATHS.app
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: PATHS.build,
-      filename: 'bundle.js'
-    },
+    filename: 'bundle.js'
+  },
   module: {
     loaders: [
       {
@@ -26,16 +30,16 @@ const common = {
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDirectory'],
+        loaders: ['babel?cacheDirectory,presets[]=react,presets[]=es2015,presets[]=survivejs-kanban'],
         include: PATHS.app
       }
 
     ]
   }
 
-};
+}
 
-if(TARGET === 'start' || !TARGET) {
+if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
     devServer: {
@@ -53,7 +57,7 @@ if(TARGET === 'start' || !TARGET) {
   });
 }
 
-if(TARGET === 'build') {
+if (TARGET === 'build') {
   module.exports = merge(common, {});
 }
 
