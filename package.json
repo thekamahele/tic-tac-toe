@@ -42,6 +42,7 @@
   "dependencies": {
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-grid-layout": "^0.11.1",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1"
   }

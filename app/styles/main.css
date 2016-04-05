@@ -1,3 +1,16 @@
 body {
     background: cornflowerblue;
 }
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+#gameOptions {
+    display: flex;
+    flexDirection: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 30%;
+}
