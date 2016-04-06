@@ -12,3 +12,10 @@ export function makeMove(position) {
     position
   }
 }
+
+export function changeSize(size) {
+  return {
+    type: actions.CHANGE_SIZE,
+    size
+  }
+}

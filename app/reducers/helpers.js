@@ -31,6 +31,11 @@ export const updateBoard = (position, board, marker) => {
   })
 }
 
+export const changeBoardSize = (newSize) => {
+  const newBoard = new Array(newSize).fill(new Array(newSize).fill(''))
+  return newBoard
+}
+
 /**
  * Function called in reducer to check if the board has a winner. It delegates to helper functions
  * that checks rows, columns, and diagonals.
@@ -67,7 +72,7 @@ const checkValues = (line) => {
  * @param n
  * @returns {boolean}
  */
-export const checkColumns = (board, n) => {
+const checkColumns = (board, n) => {
   for (let i = 0; i < board.length; i++) {
     let cols = []
     for (let j = 0; j < board[i].length; j++) {
@@ -86,7 +91,7 @@ export const checkColumns = (board, n) => {
  * @param n
  * @returns {boolean}
  */
-export const checkRows = (board, n) => {
+const checkRows = (board, n) => {
   let rowWinner = false
 
   for (let i = 0; i < n; i++) {
@@ -108,7 +113,7 @@ export const checkRows = (board, n) => {
  * @param n
  * @returns {boolean}
  */
-export const checkDiagonals = (board, n) => {
+const checkDiagonals = (board, n) => {
   const majorDiag = []
   const minorDiag = []
 
@@ -120,3 +125,4 @@ export const checkDiagonals = (board, n) => {
   return checkValues(majorDiag) || checkValues(minorDiag) ? true : false
 
 }
+

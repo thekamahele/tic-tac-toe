@@ -1,5 +1,5 @@
 import * as helpers from './helpers'
-import { SET_GAME, MAKE_MOVE } from '../constants/actionTypes'
+import { SET_GAME, MAKE_MOVE, CHANGE_SIZE } from '../constants/actionTypes'
 
 //TODO: Generate this based on n
 const boardGame = [
@@ -46,6 +46,12 @@ export default function game(state = initialState, action) {
       })
     //TODO: Case of changing board size, have a function that generates a new board
       //function to generate new board based on n
+    case CHANGE_SIZE:
+      const resizedBoard = helpers.changeBoardSize(action.size)
+      return Object.assign({}, state, {
+        gridSize: action.size,
+        board: resizedBoard
+      })
     default:
       return state;
   }
