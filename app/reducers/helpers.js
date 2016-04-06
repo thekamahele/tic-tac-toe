@@ -1,5 +1,6 @@
 import range from 'lodash/utility/range'
 import every from 'lodash/collection/every'
+import flatten from 'lodash/array/flatten'
 
 /**
  * Function that returns a new copy of the board to be rendered based on a cell position and player's turn
@@ -37,15 +38,15 @@ export const updateBoard = (position, board, marker) => {
  * @param n
  * @returns {boolean}
  */
-export const checkForWinner = (board, n = 3) => {
+export const checkForWinner = (board, n = 3, currentPlayer) => {
   let rows = checkRows(board, n)
   let cols = checkColumns(board, n)
   let diagonals = checkDiagonals(board, n)
 
   if (rows || cols || diagonals) {
-    return true
+    return currentPlayer
   } else {
-    return false
+    return null
   }
 }
 
@@ -100,9 +101,7 @@ export const checkRows = (board, n) => {
   }
   return rowWinner
 }
-//[[1,0,1],
-// [1,0,0],
-// [1,0,1]]
+
 /**
  * Function to check both major and minor diagonals of board for a win
  * @param board
@@ -118,15 +117,6 @@ export const checkDiagonals = (board, n) => {
     minorDiag.push(board[i][board.length - 1 - i])
   }
 
-  if(checkValues(majorDiag) || checkValues(minorDiag)) {
-    return true
-  } else {
-    return false
-  }
-
-}
-
-
-export const checkForTie = () => {
+  return checkValues(majorDiag) || checkValues(minorDiag) ? true : false
 
 }

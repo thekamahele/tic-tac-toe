@@ -14,16 +14,13 @@ const boardGame = [
     {x: 8, y: 8, w: 4, h: 4, static: true, value: ''} ]
 ]
 
-//[0,0][4,0][8,0]
-//[0,4][4,4][8,4]
-//[0,8][4,8][8,8]
-
 const initialState = {
   board: boardGame,
   playerTurn: 'X',
   winner: null,
   isTieGame: false,
-  gridSize: 3
+  gridSize: 3,
+  totalPlays: 0
 }
 
 export default function game(state = initialState, action) {
@@ -33,14 +30,19 @@ export default function game(state = initialState, action) {
     case MAKE_MOVE:
       const currentPlayer = state.playerTurn
       const newBoard = helpers.updateBoard(action.position, state.board, state.playerTurn)
-      const winner = helpers.checkForWinner(newBoard, state.gridSize)
+      const winner = helpers.checkForWinner(newBoard, state.gridSize, state.playerTurn)
       console.log('winner', winner)
-      //const draw = checkForTie(newBoard)
+      const plays = state.totalPlays + 1
+      console.log(plays)
+      console.log('grids', Math.pow(state.gridSize, 2))
+      const draw = plays === Math.pow(state.gridSize, 2) && winner === null ? true : false
+      console.log('draw', draw)
       return Object.assign({}, state, {
         board: newBoard,
         playerTurn: currentPlayer === 'X' ? 'O' : 'X',
-        winner: winner,
-        //isTieGame: draw
+        winner,
+        isTieGame: draw,
+        totalPlays: plays
       })
     //TODO: Case of changing board size, have a function that generates a new board
       //function to generate new board based on n
