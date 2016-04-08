@@ -1,28 +1,19 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react'
 
-class GameStatus extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    const {winner, player, draw} = this.props
-    return (
-      <div>
+const GameStatus = (props) => {
+  const {winner, player, draw} = props
+  return (
+      <div className="status">
         {draw ? 'It\'s a draw! Try again.' :
           !winner ? `Player ${player}, your turn` : `Congratulations ${winner}, you won!`}
       </div>
     )
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    winner: state.game.winner,
-    player: state.game.playerTurn,
-    draw: state.game.isTieGame
-  }
+GameStatus.propTypes = {
+  winner: PropTypes.bool,
+  player: PropTypes.string,
+  draw: PropTypes.bool
 }
 
-export default connect(mapStateToProps, null)(GameStatus)
+export default GameStatus
