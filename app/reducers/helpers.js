@@ -10,59 +10,55 @@ import flatten from 'lodash/array/flatten'
  * @returns {*}
  */
 export const updateBoard = (position, board, marker) => {
-  let newCell = board.map((row, rowIndex) => {
-    return row.reduce((memo, current, colIndex) => {
-      if (current.x === position.x && current.y === position.y) {
-        memo.push(Object.assign({}, current, {value: current.value || marker}), rowIndex, colIndex)
-      }
-      return memo
-    }, [])
-  })
-
-  newCell = newCell.filter((cellData) => {
-    return cellData.length > 1
-  })[0]
-
-  return board.map((row, index) => {
-    if (index === newCell[1]) {
-      return row.slice(0, newCell[2]).concat(newCell[0]).concat(row.slice(newCell[2] + 1))
-    }
-    return row
-  })
-}
-
-export const changeBoardSize = (newSize) => {
-  const newBoard = new Array(newSize).fill(new Array(newSize).fill(''))
-  return newBoard
+  const { x, y } = position
+  return [
+    ...board.slice(0, x),
+    [
+      ...board[x].slice(0, y),
+      marker,
+      ...board[x].slice(y + 1)
+    ],
+    ...board.slice(x + 1)
+  ]
 }
 
 /**
- * Function called in reducer to check if the board has a winner. It delegates to helper functions
- * that checks rows, columns, and diagonals.
+ * Takes in an integer and generates new matrix to represent board
+ * @param newSize
+ */
+export const changeBoardSize = (newSize) => {
+  return new Array(newSize).fill(new Array(newSize).fill(''))
+}
+
+/**
+ * Function called in reducer to check if the board has a winner.
  * @param board
  * @param n
  * @returns {boolean}
  */
-export const checkForWinner = (board, n = 3, currentPlayer) => {
-  let rows = checkRows(board, n)
-  let cols = checkColumns(board, n)
-  let diagonals = checkDiagonals(board, n)
-
-  if (rows || cols || diagonals) {
-    return currentPlayer
-  } else {
-    return null
-  }
+export const checkForWinner = (board, n, currentPlayer) => {
+  return findWinningCombos(board, n) ? currentPlayer : null
 }
 
 /**
- * Utility function to check the values of the rows/cols/diagonals
+ * Function to return if a winning combo has been found.
+ * It delegates to helper functions that checks rows, columns, and diagonals.
+ * @param board
+ * @param n
+ * @returns {boolean}
+ */
+const findWinningCombos = (board, n) => {
+  return checkRows(board, n) || checkColumns(board, n) || checkDiagonals(board, n)
+}
+
+/**
+ * Utility function to check the values of the rows/cols/diagonals to see if they all match.
  * @param line
  * @returns {boolean}
  */
 const checkValues = (line) => {
-  return line.every((cell, i, row) => {
-    return cell.value !== '' && cell.value === row[0].value
+  return line.every((cell) => {
+    return cell !== '' && cell === line[0]
   })
 }
 
@@ -73,15 +69,16 @@ const checkValues = (line) => {
  * @returns {boolean}
  */
 const checkColumns = (board, n) => {
-  for (let i = 0; i < board.length; i++) {
+  for (let i = 0; i < n; i++) {
     let cols = []
-    for (let j = 0; j < board[i].length; j++) {
+    for (let j = 0; j < n; j++) {
       cols.push(board[j][i])
     }
     if (checkValues(cols)) {
       return true
     }
   }
+
   return false
 }
 
@@ -93,17 +90,12 @@ const checkColumns = (board, n) => {
  */
 const checkRows = (board, n) => {
   let rowWinner = false
-
   for (let i = 0; i < n; i++) {
-    let checkVals = board[i].every((cell, i, row) => {
-      return cell.value !== '' && cell.value === row[0].value
-    })
-
-    if (checkVals) {
+    if (checkValues(board[i])) {
       rowWinner = true
     }
-
   }
+
   return rowWinner
 }
 
@@ -117,12 +109,11 @@ const checkDiagonals = (board, n) => {
   const majorDiag = []
   const minorDiag = []
 
-  for(let i = 0; i < board.length; i++) {
+  for (let i = 0; i < n; i++) {
     majorDiag.push(board[i][i])
-    minorDiag.push(board[i][board.length - 1 - i])
+    minorDiag.push(board[i][n - 1 - i])
   }
 
-  return checkValues(majorDiag) || checkValues(minorDiag) ? true : false
-
+  return checkValues(majorDiag) || checkValues(minorDiag)
 }
 
