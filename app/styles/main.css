@@ -1,16 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Anton);
+
 body {
-    background: cornflowerblue;
+    background: #283141;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem;
+    color: #F46E5E;
+}
+
+span {
+    font-size: .7em;
 }
 
 .main {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+    border: solid 2px white;
+    border-radius: 20px;
+    margin: 0 auto;
 }
 
 #gameOptions {
     display: flex;
-    flexDirection: column;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 30%;
+    flex-direction: column;
+    margin-right: 20px;
+    width: 150px;
+}
+
+button, input {
+    border-radius: 10px;
+    border: solid 1px #000;
+    color: #F46E5E;
+    background-color: #FFF;
+    font-family: 'Anton', sans-serif;
+    font-size: .9em;
+    padding: 10px;
+    margin: 10px 10px;
+}
+
+input {
+    min-width: 100px;
+    height: 20px;
+    text-align: center;
+}
+
+.status {
+    font-size: 2em;
+    text-align: center;
 }
