@@ -1,35 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { makeMove } from '../actions/index'
-import ReactGridLayout from 'react-grid-layout'
-import '../styles/board.css';
 
 class Cell extends Component {
-  constructor(props) {
-    super(props)
+  handleClick(pos) {
+    //Will only fire if the square is empty and there is no winner
+    if (this.props.value === '' && !this.props.winner) {
+      this.playerMove(pos)
+    }
   }
 
-  handleClick(a) {
-    //TODO: dispatch action to mark board
-    console.log('this state', this.props.playerTurn)
-    console.log('this is ', a)
-    this.props.makeMove({x: a.x, y: a.y})
+  playerMove(position) {
+    this.props.makeMove({x: position[0], y: position[1]})
   }
 
   render() {
     return (
-      <div className="cell" onClick={() => {this.handleClick(this.props.position)}}>
-        {/*<img src={`${this.state.marker}`} alt=""/>*/}
-        {this.props.position.value}
+      <div className="cell" onClick={() => { this.handleClick(this.props.position) }}>
+        {this.props.value}
       </div>
     )
   }
 }
 
+Cell.propTypes = {
+  position: PropTypes.array,
+  value: PropTypes.string
+}
+
 const mapStateToProps = (state) => {
   return {
-    playerTurn: state.game.playerTurn
+    winner: state.game.winner
   }
 }
 
-export default connect(mapStateToProps, { makeMove })(Cell)
+export default connect(mapStateToProps, {makeMove})(Cell)
