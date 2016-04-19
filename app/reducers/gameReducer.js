@@ -7,7 +7,7 @@ const initialState = {
   playerTurn: 'X',
   winner: null,
   isTieGame: false,
-  gridSize: 3,
+  gridSize: boardGame.length,
   totalPlays: 0
 }
 

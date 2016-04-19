@@ -116,4 +116,3 @@ const checkDiagonals = (board, n) => {
 
   return checkValues(majorDiag) || checkValues(minorDiag)
 }
-

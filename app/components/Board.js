@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import ReactGridLayout from 'react-grid-layout'
 import Cell from './Cell'
@@ -7,7 +6,6 @@ import GameOptions from './GameOptions'
 import '../styles/board.css';
 
 class Board extends Component {
-
   render() {
     const { board } = this.props
     const cellDimensions = []

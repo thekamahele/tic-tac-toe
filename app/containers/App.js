@@ -37,4 +37,5 @@ function mapStateToProps(state) {
     draw: state.game.isTieGame
   }
 }
+
 export default connect(mapStateToProps, null)(App)

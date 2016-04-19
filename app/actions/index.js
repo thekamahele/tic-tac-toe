@@ -1,10 +1,8 @@
 import * as actions from '../constants/actionTypes'
 
-export function setGame(size = 3) {
-  console.log('SIZE', size)
+export function setGame() {
   return {
-    type: actions.SET_GAME,
-    size
+    type: actions.SET_GAME
   }
 }
 

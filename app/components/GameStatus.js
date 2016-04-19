@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 
-const GameStatus = (props) => {
-  const {winner, player, draw} = props
+const GameStatus = ({winner, player, draw}) => {
   return (
       <div className="status">
         {draw ? 'It\'s a draw! Try again.' :
